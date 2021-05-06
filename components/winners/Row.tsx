@@ -1,7 +1,7 @@
 import { ChevronDownIcon, ChevronUpIcon, RefreshIcon } from '@heroicons/react/solid'
 import React, { useEffect, useState } from 'react'
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux'
-import { rerollWinner } from '../../redux/actions/giveawayActions'
+import { editWinner, rerollWinner } from '../../redux/actions/giveawayActions'
 import { countdown } from '../../util/countdown'
 import { Switch } from '../Switch'
 import { TextField } from '../TextField'
@@ -70,16 +70,38 @@ export const Winner = ({ type, winner, i }) => {
         'Prize Received'
     ]
 
-    // const originalLink = winner.link
-    // const originalStatus = winner.status
+    const originalName = winner.winnerName
+    const originalLink = winner.winnerLink ? winner.winnerLink : ''
+    const originalStatus = winner.winnerStatus
 
-    const [link, setLink] = useState<string>(winner.link ? winner.link : undefined)
-    const [selected, setSelected] = useState<string>(statuses[0])
+    const statusIndex = statuses.indexOf(winner.winnerStatus)
+
+    const [name, setName] = useState<string>(winner.winnerName)
+    const [link, setLink] = useState<string>(winner.winnerLink ? winner.winnerLink : '')
+    const [status, setStatus] = useState<string>(statuses[statusIndex])
+    const [disabled, setDisabled] = useState(true)
+
+    useEffect(() => {
+        if(
+            originalName !== name ||
+            originalLink !== link ||
+            originalStatus !== status
+        ) {
+            setDisabled(false)
+        } else {
+            setDisabled(true)
+        }
+    }, [name, link, status, winner])
 
     const dispatch = useDispatch()
 
     const reroll = () => {
         dispatch(rerollWinner(type._id, winner._id))
+    }
+
+    const body = { name, link, status }
+    const submit = () => {
+        dispatch(editWinner(body, type._id, winner._id))
     }
 
     const { loading, error, types } = useSelector((state: RootStateOrAny) => state.types)
@@ -89,7 +111,7 @@ export const Winner = ({ type, winner, i }) => {
             <div key={winner.id} 
                 className={`${i % 2 && 'bg-gray-50'} flex justify-between items-center px-5 py-2 text-sm text-black`}
             >
-                <span style={{width: '15%'}}>{winner.winnerName}</span>
+                <span style={{width: '15%'}}>{name}</span>
                 <input 
                     style={{width: '30%', marginRight: '15px'}}
                     value={link} 
@@ -97,7 +119,7 @@ export const Winner = ({ type, winner, i }) => {
                     onChange={(e) => setLink(e.target.value)}
                     className="bg-transparent border px-3 py-2 rounded-lg focus:outline-none"
                 />
-                <Select selected={selected} setSelected={setSelected} statuses={statuses} />
+                <Select status={status} setStatus={setStatus} statuses={statuses} />
                 <div style={{width: '15%'}}>
                     <button onClick={reroll}
                         className="focus:outline-none flex py-2 px-3 bg-transparent border border-blue-800 text-blue-800 font-medium rounded-md"
@@ -106,8 +128,9 @@ export const Winner = ({ type, winner, i }) => {
                         Re-roll
                     </button>    
                 </div>
-                <button style={{width: '10%'}} onClick={reroll}
-                    className={`focus:outline-none py-2 px-3 font-semibold bg-blue-100 text-blue-800 rounded-md`}
+                <button style={{width: '10%'}} onClick={submit}
+                    disabled={disabled}
+                    className={`${disabled && 'opacity-30 cursor-not-allowed'} transition focus:outline-none py-2 px-3 font-semibold bg-blue-100 text-blue-800 rounded-md`}
                 >Save</button>    
             </div>
             {error && (

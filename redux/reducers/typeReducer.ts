@@ -1,4 +1,4 @@
-import { REROLL_WINNER_FAIL, REROLL_WINNER_SUCCESS } from "../constants/giveawayConstants"
+import { EDIT_WINNER_FAIL, EDIT_WINNER_SUCCESS, REROLL_WINNER_FAIL, REROLL_WINNER_SUCCESS } from "../constants/giveawayConstants"
 import { DELETE_TYPE_SUCCESS, EDIT_TYPE_SUCCESS, GET_TYPES_FAIL, GET_TYPES_REQUEST, GET_TYPES_SUCCESS, NEW_TYPE_SUCCESS } from "../constants/typeConstants"
 
 export const typeReducer = (state = { }, action) => {
@@ -47,22 +47,9 @@ export const typesReducer = (state = { types: undefined }, action) => {
 
             return { loading: false, types: [...updatedTypes] }
         }
+        case EDIT_WINNER_FAIL:
+            return { loading: false, types: [...state.types], error: action.payload }
 
-        case REROLL_WINNER_SUCCESS: {
-
-            const editedType = action.payload
-
-            const updatedTypes = state.types.map(type => {
-                if(type._id === editedType._id) {
-                    console.log()
-                    return editedType
-                }
-                return type
-            })
-
-            return { loading: false, types: [...updatedTypes] }
-
-        }
         case REROLL_WINNER_FAIL:
             return { loading: false, types: [...state.types], error: action.payload }
 
