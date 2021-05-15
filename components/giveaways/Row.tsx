@@ -13,7 +13,7 @@ const Row = ({ type }) => {
     const [name, setName] = useState<string>(type.name)
     const [game, setGame] = useState<string>(type.game)
     const [frequency, setFrequency] = useState<string>(type.frequency)
-    const cd = countdown(type.list[0].expiry)
+    const cd = countdown(type.expiry)
     const formatted = cd.days + 'd ' + cd.hours + 'h ' + cd.mins + 'm ' + cd.secs + 's'
     const [expiry ,setExpiry] = useState<string>(formatted)
     const [active, setActive] = useState<boolean>(type.active)
@@ -26,12 +26,12 @@ const Row = ({ type }) => {
 
     const editHandler = () => {
         setOpen(false)
-        dispatch(editType({ name, game, frequency, active }, type._id))
+        dispatch(editType({ name, game, frequency, active }, type.type))
     }
 
     const deleteHandler = () => {
         setOpen(false)
-        dispatch(deleteType(type._id))
+        dispatch(deleteType(type.type))
     }
 
     return (
@@ -60,7 +60,7 @@ const Row = ({ type }) => {
             </span>
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-            <button onClick={() => setOpen(true)} className="focus:outline-none text-indigo-600 hover:text-indigo-900">
+            <button onClick={() => setOpen(true)} className="focus:outline-none text-purple-600 hover:text-purple-900">
                 Edit
             </button>
             </td>
@@ -93,7 +93,7 @@ const Row = ({ type }) => {
                         </button>
                         <button 
                             onClick={editHandler}
-                            className="focus:outline-none focus:bg-blue-200 px-4 py-2 bg-blue-100 text-blue-600 text-sm font-semibold rounded-md"
+                            className="focus:outline-none focus:bg-purple-200 px-4 py-2 bg-purple-100 text-purple-600 text-sm font-semibold rounded-md"
                         >Save</button>    
                     </div>
                     

@@ -36,7 +36,7 @@ const loginPage = () => {
         <Head>
             <title>Login | Giveaways GG</title>
         </Head>
-        <div className="w-full h-full bg-gray-900 flex justify-center items-center">
+        <div className="w-full h-full bg-purple-600 flex justify-center items-center">
             <div className="w-80 bg-white text-black text-center p-5 rounded-xl">
                 <h1 className="text-2xl font-bold mb-3">Log in</h1>
                 <TextField 
@@ -53,7 +53,7 @@ const loginPage = () => {
                 <button
                     onClick={loginHandler}
                     disabled={disabled ? true : false}
-                    className={`${disabled && 'opacity-30 cursor-not-allowed'} transition w-full bg-blue-100 text-blue-800 p-2 rounded-md font-semibold text-sm focus:outline-none`}
+                    className={`${disabled && 'opacity-30 cursor-not-allowed'} transition w-full bg-purple-100 text-purple-800 p-2 rounded-md font-semibold text-sm focus:outline-none`}
                 >
                     Log In
                 </button>

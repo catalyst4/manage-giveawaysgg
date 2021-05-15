@@ -23,7 +23,7 @@ export const rerollWinner = (type, id) => async (dispatch) => {
 
         dispatch({ type: REROLL_WINNER_REQUEST })
 
-        const { data } = await axios.get(`${url}/type/${type}/id/${id}/reroll`, config)
+        const { data } = await axios.get(`${url}/admin/type/${type}/id/${id}/reroll`, config)
 
         dispatch({
             type: EDIT_TYPE_SUCCESS,
@@ -60,7 +60,9 @@ export const editWinner = (body, type, id) => async (dispatch) => {
 
         dispatch({ type: EDIT_WINNER_REQUEST })
 
-        const { data } = await axios.post(`${url}/type/${type}/id/${id}`, body, config)
+        const { data } = await axios.post(`${url}/admin/type/${type}/id/${id}`, body, config)
+
+        console.log(data)
 
         dispatch({
             type: EDIT_TYPE_SUCCESS,

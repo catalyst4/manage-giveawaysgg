@@ -24,12 +24,8 @@ export const typesReducer = (state = { types: undefined }, action) => {
             
             const deletedType = action.payload
 
-            console.log(deletedType)
-
-            const updatedTypes = state.types.filter(type => type._id !== deletedType._id)
+            const updatedTypes = state.types.filter(type => type.type !== deletedType.type)
             
-            console.log(updatedTypes)
-
             return { loading: false, types: [...updatedTypes] }
         }
             
@@ -38,12 +34,15 @@ export const typesReducer = (state = { types: undefined }, action) => {
             const editedType = action.payload
 
             const updatedTypes = state.types.map(type => {
-                if(type._id === editedType._id) {
-                    console.log()
+                console.log(type.type, editedType.type)
+                if(type.type === editedType.type) {
+                    console.log(editedType)
                     return editedType
                 }
                 return type
             })
+
+            console.log(updatedTypes)
 
             return { loading: false, types: [...updatedTypes] }
         }

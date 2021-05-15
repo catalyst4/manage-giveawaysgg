@@ -22,7 +22,7 @@ export const getTypes = () => async (dispatch) => {
 
         dispatch({ type: GET_TYPES_REQUEST })
 
-        const { data } = await axios.get(`${url}/type`, config)
+        const { data } = await axios.get(`${url}/admin/type`, config)
 
         dispatch({
             type: GET_TYPES_SUCCESS,
@@ -59,7 +59,7 @@ export const newType = (body) => async (dispatch) => {
 
         dispatch({ type: NEW_TYPE_REQUEST })
 
-        const { data } = await axios.post(`${url}/type`, body, config)
+        const { data } = await axios.post(`${url}/admin/type`, body, config)
 
         dispatch({
             type: NEW_TYPE_SUCCESS,
@@ -77,7 +77,7 @@ export const newType = (body) => async (dispatch) => {
 
 }
 
-export const deleteType = (id) => async (dispatch) => {
+export const deleteType = (type) => async (dispatch) => {
 
     try {
 
@@ -96,7 +96,7 @@ export const deleteType = (id) => async (dispatch) => {
 
         dispatch({ type: DELETE_TYPE_REQUEST })
 
-        const { data } = await axios.delete(`${url}/type/${id}`, config)
+        const { data } = await axios.delete(`${url}/admin/type/${type}`, config)
 
         dispatch({
             type: DELETE_TYPE_SUCCESS,
@@ -114,7 +114,7 @@ export const deleteType = (id) => async (dispatch) => {
 
 }
 
-export const editType = (body, id) => async (dispatch) => {
+export const editType = (body, type) => async (dispatch) => {
 
     try {
 
@@ -133,7 +133,7 @@ export const editType = (body, id) => async (dispatch) => {
 
         dispatch({ type: EDIT_TYPE_REQUEST })
 
-        const { data } = await axios.post(`${url}/type/${id}`, body, config)
+        const { data } = await axios.post(`${url}/admin/type/${type}`, body, config)
 
         dispatch({
             type: EDIT_TYPE_SUCCESS,

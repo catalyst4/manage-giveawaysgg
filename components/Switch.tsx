@@ -8,7 +8,7 @@ export const Switch = ({ active, setActive }) => {
       checked={active}
       onChange={setActive}
       className={`${
-        active ? "bg-blue-600" : "bg-gray-200"
+        active ? "bg-purple-600" : "bg-gray-200"
       } relative inline-flex items-center h-6 rounded-full w-11 focus:outline-none`}
     >
       <span className="sr-only">Enable notifications</span>

@@ -13,14 +13,7 @@ const Row = ({ type }) => {
     const [name, setName] = useState<string>(type.name)
     const [game, setGame] = useState<string>(type.game)
     const [frequency, setFrequency] = useState<string>(type.frequency)
-    const cd = countdown(type.expiry)
-    const formatted = cd.days + 'd ' + cd.hours + 'h ' + cd.mins + 'm ' + cd.secs + 's'
-    const [expiry ,setExpiry] = useState<string>(formatted)
     const [active, setActive] = useState<boolean>(type.active)
-    
-    useEffect(() => {
-        setExpiry(formatted)
-    }, [cd])
 
     return (
         <div>
@@ -50,8 +43,8 @@ const Row = ({ type }) => {
                         <div style={{width: '15%'}}>Re-roll</div>
                         <div style={{width: '10%'}}>Save</div>
                     </div>
-                    {type.list.filter(giveaway => giveaway.winner === true).map((winner, i) => (
-                        <Winner key={winner._id} type={type} winner={winner} i={i} />
+                    {type.winners.map((winner, i) => (
+                        <Winner key={winner.id} type={type} winner={winner} i={i} />
                     ))}
                 </div> 
             )}  
@@ -70,20 +63,19 @@ export const Winner = ({ type, winner, i }) => {
         'Prize Received'
     ]
 
-    const originalName = winner.winnerName
-    const originalLink = winner.winnerLink ? winner.winnerLink : ''
-    const originalStatus = winner.winnerStatus
+    const originalName = winner.name
+    const originalLink = winner.link ? winner.link : ''
+    const originalStatus = winner.status
 
-    const statusIndex = statuses.indexOf(winner.winnerStatus)
+    const statusIndex = statuses.indexOf(winner.status)
 
-    const [name, setName] = useState<string>(winner.winnerName)
-    const [link, setLink] = useState<string>(winner.winnerLink ? winner.winnerLink : '')
+    const [link, setLink] = useState<string>(winner.link ? winner.link : '')
     const [status, setStatus] = useState<string>(statuses[statusIndex])
     const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
         if(
-            originalName !== name ||
+            originalName !== winner.name ||
             originalLink !== link ||
             originalStatus !== status
         ) {
@@ -91,17 +83,18 @@ export const Winner = ({ type, winner, i }) => {
         } else {
             setDisabled(true)
         }
-    }, [name, link, status, winner])
+    }, [link, status, winner, disabled])
 
     const dispatch = useDispatch()
 
     const reroll = () => {
-        dispatch(rerollWinner(type._id, winner._id))
+        dispatch(rerollWinner(type.type, winner.id))
     }
 
+    const name = winner.name
     const body = { name, link, status }
     const submit = () => {
-        dispatch(editWinner(body, type._id, winner._id))
+        dispatch(editWinner(body, type.type, winner.id))
     }
 
     const { loading, error, types } = useSelector((state: RootStateOrAny) => state.types)
@@ -122,7 +115,7 @@ export const Winner = ({ type, winner, i }) => {
                 <Select status={status} setStatus={setStatus} statuses={statuses} />
                 <div style={{width: '15%'}}>
                     <button onClick={reroll}
-                        className="focus:outline-none flex py-2 px-3 bg-transparent border border-blue-800 text-blue-800 font-medium rounded-md"
+                        className="focus:outline-none flex py-2 px-3 bg-transparent border border-purple-800 text-purple-800 font-medium rounded-md"
                     >
                         <RefreshIcon className="w-5 h-5 mr-2" />
                         Re-roll
@@ -130,7 +123,7 @@ export const Winner = ({ type, winner, i }) => {
                 </div>
                 <button style={{width: '10%'}} onClick={submit}
                     disabled={disabled}
-                    className={`${disabled && 'opacity-30 cursor-not-allowed'} transition focus:outline-none py-2 px-3 font-semibold bg-blue-100 text-blue-800 rounded-md`}
+                    className={`${disabled && 'opacity-30 cursor-not-allowed'} transition focus:outline-none py-2 px-3 font-semibold bg-purple-100 text-purple-800 rounded-md`}
                 >Save</button>    
             </div>
             {error && (

@@ -47,7 +47,7 @@ const WinnersPage = ({ user }) => {
         <Head>
             <title>Winners | Giveaways GG</title>
         </Head>
-        <div className="w-full h-full bg-gray-900">
+        <div className="w-full h-full bg-gray-100">
         <Navbar user={user} />
         <div className="container mx-auto mt-20">
             <Winners />  

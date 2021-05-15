@@ -49,9 +49,9 @@ const Giveaways = () => {
     return (
         <div>
             <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold">Giveaways</h1>
+                <h1 className="text-2xl font-bold text-purple-600">Giveaways</h1>
                 <button 
-                    className="text-xs bg-white text-gray-700 px-3 py-2 rounded-md font-semibold focus:outline-none" 
+                    className="text-sm bg-purple-100 text-purple-800 px-4 py-2 rounded-md font-semibold focus:outline-none" 
                     onClick={() => setOpen(true)}
                 >   
                     New Giveaway
@@ -83,7 +83,7 @@ const Giveaways = () => {
                     <button 
                         onClick={newGiveaway}
                         disabled={!valid}
-                        className={`${!valid && 'opacity-30 cursor-not-allowed'} transition focus:outline-none focus:bg-blue-200 px-4 py-2 bg-blue-100 text-blue-600 text-sm font-semibold rounded-md`}
+                        className={`${!valid && 'opacity-30 cursor-not-allowed'} transition focus:outline-none focus:bg-purple-200 px-4 py-2 bg-purple-100 text-purple-600 text-sm font-semibold rounded-md`}
                     >Save</button>
                 </div>
             </Modal>

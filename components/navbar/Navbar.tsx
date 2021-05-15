@@ -18,7 +18,7 @@ const Navbar = ({ user }) => {
     ]
 
     return (
-        <nav className="w-full h-16 bg-gray-800">
+        <nav className="w-full h-16 bg-purple-600">
             <div className="h-full container mx-auto flex justify-between items-center">
                 <div className="flex justify-start items-center">
                     <h1 className="text-xl font-semibold mr-8">Dashboard</h1>
@@ -27,7 +27,7 @@ const Navbar = ({ user }) => {
                             {navItems?.map((item, i) => (
                                 <li key={i} className="mr-3">
                                     <Link href={`${item.href}`}>
-                                        <a className="hover:bg-gray-700 px-3 py-2 font-medium rounded-md">{item.name}</a>
+                                        <a className="hover:bg-black hover:bg-opacity-10 px-3 py-2 font-medium rounded-md">{item.name}</a>
                                     </Link>
                                 </li>    
                             ))}
