@@ -13,14 +13,16 @@ const Row = ({ type }) => {
     const [name, setName] = useState<string>(type.name)
     const [game, setGame] = useState<string>(type.game)
     const [frequency, setFrequency] = useState<string>(type.frequency)
-    const cd = countdown(type.expiry)
-    const formatted = cd.days + 'd ' + cd.hours + 'h ' + cd.mins + 'm ' + cd.secs + 's'
-    const [expiry ,setExpiry] = useState<string>(formatted)
     const [active, setActive] = useState<boolean>(type.active)
     
-    useEffect(() => {
-        setExpiry(formatted)
-    }, [cd])
+    let cd
+    if(process.browser) {
+        cd = countdown(type.expiry)
+    }
+
+    const date = new Date(type.expiry)
+    const expiryDate = (date.getHours() + (date.getHours() === 0 ? '0' : '')) + ':' + date.getMinutes() + (date.getMinutes() === 0 ? '0' : '') + ' ' + date?.getDate() + '/' + (date?.getMonth() + 1) + '/' + date.getFullYear()
+    const expiresIn = cd?.mins + 'm ' + cd?.secs + 's'
 
     const dispatch = useDispatch()
 
@@ -52,8 +54,8 @@ const Row = ({ type }) => {
             <div className="text-sm text-gray-900">23,461 Total Entries</div>
             <div className="text-sm text-gray-500">341 in the past hour</div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">01:00 2/5/21</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{expiry}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{expiryDate}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{expiresIn}</td>
             <td className="px-6 py-4 whitespace-nowrap">
             <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${type.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} `}>
                 {type.active ? 'Active' : 'Inactive'}
