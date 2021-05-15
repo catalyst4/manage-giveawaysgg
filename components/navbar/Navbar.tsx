@@ -18,7 +18,7 @@ const Navbar = ({ user }) => {
     ]
 
     return (
-        <nav className="w-full h-16 bg-red-600">
+        <nav className="w-full h-16 bg-gray-600">
             <div className="h-full container mx-auto flex justify-between items-center">
                 <div className="flex justify-start items-center">
                     <h1 className="text-xl font-semibold mr-8">Dashboard</h1>
