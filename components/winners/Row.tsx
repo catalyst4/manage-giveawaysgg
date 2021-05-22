@@ -55,8 +55,6 @@ const Row = ({ type }) => {
 
 export const Winner = ({ type, winner, i }) => {
 
-    console.log(winner)
-
     const statuses = [
         'Contacting Winner',
         'Fortnite Gifting Cooldown',
@@ -71,18 +69,25 @@ export const Winner = ({ type, winner, i }) => {
 
     const [link, setLink] = useState<string>(winner.link ? winner.link : '')
     const [status, setStatus] = useState<string>(statuses[statusIndex])
-    const [disabled, setDisabled] = useState(true)
+    const [disabled, setDisabled] = useState(false)
+    const name = winner.name
 
     useEffect(() => {
-        if(
-            originalName !== winner.name ||
-            originalLink !== link ||
-            originalStatus !== status
-        ) {
-            setDisabled(false)
-        } else {
-            setDisabled(true)
-        }
+        // console.log(disabled)
+        // console.log({
+        //     originalName, name,
+        //     originalLink, link,
+        //     originalStatus, status
+        // })
+        // if(
+        //     originalName !== name ||
+        //     originalLink !== link ||
+        //     originalStatus !== status
+        // ) {
+        //     setDisabled(false)
+        // } else {
+        //     setDisabled(true)
+        // }
     }, [link, status, winner, disabled])
 
     const dispatch = useDispatch()
@@ -91,7 +96,6 @@ export const Winner = ({ type, winner, i }) => {
         dispatch(rerollWinner(type.type, winner.id))
     }
 
-    const name = winner.name
     const body = { name, link, status }
     const submit = () => {
         dispatch(editWinner(body, type.type, winner.id))

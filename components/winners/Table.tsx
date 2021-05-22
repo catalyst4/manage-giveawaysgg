@@ -14,8 +14,6 @@ export const Table = () => {
         dispatch(getTypes())
       }
     }, [types])
-
-    console.log(types)
   
     return (
       <div className="flex flex-col">

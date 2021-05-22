@@ -22,7 +22,7 @@ const Row = ({ type }) => {
 
     const date = new Date(type.expiry)
     const expiryDate = (date.getHours() + (date.getHours() === 0 ? '0' : '')) + ':' + date.getMinutes() + (date.getMinutes() === 0 ? '0' : '') + ' ' + date?.getDate() + '/' + (date?.getMonth() + 1) + '/' + date.getFullYear()
-    const expiresIn = cd?.mins + 'm ' + cd?.secs + 's'
+    const expiresIn = cd?.days + 'd ' + cd?.hours + 'h ' + cd?.mins + 'm ' + cd?.secs + 's'
 
     const dispatch = useDispatch()
 
@@ -51,8 +51,8 @@ const Row = ({ type }) => {
             </div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
-            <div className="text-sm text-gray-900">23,461 Total Entries</div>
-            <div className="text-sm text-gray-500">341 in the past hour</div>
+            <div className="text-sm text-gray-900">{type.totalEntries} Total Entries</div>
+            <div className="text-sm text-gray-500">{type.uniqueEntries} Unique Entries</div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{expiryDate}</td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{expiresIn}</td>

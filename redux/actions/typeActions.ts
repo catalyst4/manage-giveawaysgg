@@ -24,6 +24,8 @@ export const getTypes = () => async (dispatch) => {
 
         const { data } = await axios.get(`${url}/admin/type`, config)
 
+        console.log(data)
+
         dispatch({
             type: GET_TYPES_SUCCESS,
             payload: data
