@@ -15,6 +15,10 @@ const Row = ({ type }) => {
     const [frequency, setFrequency] = useState<string>(type.frequency)
     const [active, setActive] = useState<boolean>(type.active)
 
+    const winners = type.winners.length
+    const completeWinners = (type.winners.filter(winner => winner.status === 'Prize Received')).length
+    const pendingWinners = (type.winners.filter(winner => winner.status !== 'Prize Received')).length
+    
     return (
         <div>
             <div onClick={() => setOpen(!open)} className="flex justify-start px-6 py-3 cursor-pointer">
@@ -23,11 +27,13 @@ const Row = ({ type }) => {
                         <div className="text-sm font-medium text-gray-900">{type.name}</div>
                     </div>
                     <div style={{width: '25%'}} className="whitespace-nowrap">
-                        <div className="text-sm text-gray-900">134</div>
+                        <div className="text-sm text-gray-900">{winners}</div>
                     </div>
-                    <div style={{width: '25%'}} className="whitespace-nowrap text-sm text-gray-500">121 ({(121 * 100 / 134).toFixed(0)}%)</div>
+                    <div style={{width: '25%'}} className="whitespace-nowrap text-sm text-gray-500">
+                        {completeWinners} ({(completeWinners * 100 / winners).toFixed(0)}%)
+                    </div>
                     <div style={{width: '25%'}} className="flex justify-between whitespace-nowrap text-sm text-gray-500">
-                        <div>13</div>
+                        <div>{pendingWinners} ({(pendingWinners * 100 / winners).toFixed(0)}%)</div>
                         <button onClick={() => setOpen(!open)} className="focus:outline-none w-5 h-5 opacity-50">
                             {open ? <ChevronUpIcon color="black" /> : <ChevronDownIcon color="black" />}
                         </button>

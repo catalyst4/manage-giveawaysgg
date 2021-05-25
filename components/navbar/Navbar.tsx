@@ -62,7 +62,7 @@ const Account = ({ user }) => {
     return (
         <div className="flex items-center">
             <span className="text-md mr-4">{user.name}</span>
-            <img src="/img/jake.png" className="w-8 h-8 rounded-full mr-2"></img>
+            <img src={`/img/${user.username}.png`} className="w-8 h-8 rounded-full mr-2"></img>
             <Menu logout={logoutHandler} />
         </div>
     )
