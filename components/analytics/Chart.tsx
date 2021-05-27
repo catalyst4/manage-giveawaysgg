@@ -74,7 +74,15 @@ const Chart = () => {
     }
 
     return (
-        <Line type={Line} data={data} options={options} />
+        <div>
+            {loading ? (
+                <div>loading</div>
+            ) : error ? (
+                <div>error</div>
+            ) : (
+                <Line type={Line} data={data} options={options} />
+            )}
+        </div>
     )
 }
 
