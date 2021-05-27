@@ -15,10 +15,14 @@ const Row = ({ type }) => {
     const [frequency, setFrequency] = useState<string>(type.frequency)
     const [active, setActive] = useState<boolean>(type.active)
 
-    const winners = type.winners.length
-    const completeWinners = (type.winners.filter(winner => winner.status === 'Prize Received')).length
-    const pendingWinners = (type.winners.filter(winner => winner.status !== 'Prize Received')).length
-    
+    const winners = type.giveaways.length-1 
+    const completeWinners = (type.giveaways
+        .filter(giveaway => giveaway.winner.status === 'Prize Received'))
+        .length
+    const pendingWinners = (type.giveaways
+        .filter(giveaway => giveaway.winner.winner === true && giveaway.winner.status !== 'Prize Received'))
+        .length 
+        
     return (
         <div>
             <div onClick={() => setOpen(!open)} className="flex justify-start px-6 py-3 cursor-pointer">
@@ -49,9 +53,13 @@ const Row = ({ type }) => {
                         <div style={{width: '15%'}}>Re-roll</div>
                         <div style={{width: '10%'}}>Save</div>
                     </div>
-                    {type.winners.map((winner, i) => (
-                        <Winner key={winner.id} type={type} winner={winner} i={i} />
-                    ))}
+                    {type.giveaways.map((giveaway, i) => {
+                        if(i > 0) {
+                            return (
+                                <Winner key={giveaway.id} type={type} winner={giveaway.winner} i={i} />
+                            )
+                        }
+                    })}
                 </div> 
             )}  
         </div>
