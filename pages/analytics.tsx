@@ -48,7 +48,7 @@ const analytics = ({ user }) => {
             <Head>
                 <title>Analytics | Giveaways GG</title>
             </Head>
-            <div className="w-full h-full bg-gray-100">
+            <div className="w-full h-auto">
                 <Navbar user={user} />
                 <div className="container mx-auto mt-20">
                     <Analytics />

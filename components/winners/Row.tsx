@@ -15,6 +15,8 @@ const Row = ({ type }) => {
     const [frequency, setFrequency] = useState<string>(type.frequency)
     const [active, setActive] = useState<boolean>(type.active)
 
+    console.log(type)
+
     const winners = type.giveaways.length-1 
     const completeWinners = (type.giveaways
         .filter(giveaway => giveaway.winner.status === 'Prize Received'))
@@ -56,7 +58,7 @@ const Row = ({ type }) => {
                     {type.giveaways.map((giveaway, i) => {
                         if(i > 0) {
                             return (
-                                <Winner key={giveaway.id} type={type} winner={giveaway.winner} i={i} />
+                                <Winner key={giveaway.id} type={type} giveaway={giveaway} i={i} />
                             )
                         }
                     })}
@@ -67,7 +69,9 @@ const Row = ({ type }) => {
     )
 }
 
-export const Winner = ({ type, winner, i }) => {
+export const Winner = ({ type, giveaway, i }) => {
+
+    const winner = giveaway.winner
 
     const statuses = [
         'Contacting Winner',
@@ -107,12 +111,12 @@ export const Winner = ({ type, winner, i }) => {
     const dispatch = useDispatch()
 
     const reroll = () => {
-        dispatch(rerollWinner(type.type, winner.id))
+        dispatch(rerollWinner(type.type, giveaway.id))
     }
 
     const body = { name, link, status }
     const submit = () => {
-        dispatch(editWinner(body, type.type, winner.id))
+        dispatch(editWinner(body, type.type, giveaway.id))
     }
 
     const { loading, error, types } = useSelector((state: RootStateOrAny) => state.types)

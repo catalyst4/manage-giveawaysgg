@@ -3,7 +3,8 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      'sans': ['Poppins']
+      'poppins': ['Poppins'],
+      'russoOne': ['Russo One'],
     },
     extend: {},
   },

@@ -6,8 +6,10 @@ export const Analytics = () => {
 
     return (
         <div>
-            <h1 className="text-2xl font-bold text-purple-600">Analytics</h1>
-            <Chart />
+            <h1 className="font-russoOne text-2xl text-purple-600">Analytics</h1>
+            <div className="p-5">
+                <Chart />
+            </div>
             <Table />
         </div>
     )
